@@ -25,13 +25,17 @@ const SendEth = ({ setSend }: AccountInfoProps) => {
   });
 
   useEffect(() => {
-    if(amount > balanceData?.formatted.toString()){
-      setSetError("* Insufficient balance")
-      return;
-    }else if(amount <= balanceData?.formatted.toString()){
-      setSetError("")
-      return;
+    if (balanceData?.formatted) {
+      const balance = parseFloat(balanceData.formatted); // Ensure balance is a number
+      const enteredAmount = parseFloat(amount); // Ensure amount is a number
+
+      if (enteredAmount > balance) {
+        setSetError("* Insufficient balance");
+      } else {
+        setSetError("");
+      }
     }
+
   }, [amount,balanceData?.formatted])
   
 
