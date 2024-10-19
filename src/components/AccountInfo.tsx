@@ -7,6 +7,7 @@ import {
 import { BackgroundGradient } from "./ui/background-gradient";
 import Button from "./Button";
 import { toast } from "sonner";
+import Image from "next/image";
 
 interface AccountInfoProps {
   setSend: React.Dispatch<React.SetStateAction<boolean>>; // Correct type for setSend
@@ -20,9 +21,11 @@ export function AccountInfo({ setSend }: AccountInfoProps) {
     address,
   });
 
-  function shortenAddress(address: any) {
+  function shortenAddress(address: string | undefined) {
+    if (!address) return ''; 
     return `${address.slice(0, 4)}...${address.slice(-2)}`;
   }
+  
   
   const ShortAdd = address ? shortenAddress(address) : "";
 
@@ -35,7 +38,7 @@ export function AccountInfo({ setSend }: AccountInfoProps) {
         <p
           className="text-base sm:text-xl text-black mt-4 mb-2 dark:text-neutral-200 cursor-pointer flex gap-3 justify-between items-center  "
         >
-          Address: {ShortAdd} <img src="https://cdn-icons-png.flaticon.com/128/8860/8860785.png" alt="copy" width={25} height={15} onClick={() => {
+          Address: {ShortAdd} <Image src="https://cdn-icons-png.flaticon.com/128/8860/8860785.png" alt="copy" width={25} height={15} onClick={() => {
             navigator.clipboard.writeText(`${address}`)
             toast("Copied to clipboard")
             }} />

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { WagmiProvider } from "wagmi";
-import { config } from "./config";
 import { Providers } from "./providers";
 
 const geistSans = localFont({

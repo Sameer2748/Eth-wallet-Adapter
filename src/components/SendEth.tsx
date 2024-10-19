@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { BackgroundGradient } from './ui/background-gradient';
 import Button from './Button';
-import { useAccount, useBalance, useDisconnect, useSendTransaction } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction } from 'wagmi'
 import { parseEther } from 'viem'
 import { isAddress } from 'viem';
 import { toast } from 'sonner';
@@ -15,12 +15,12 @@ interface AccountInfoProps {
 const SendEth = ({ setSend }: AccountInfoProps) => {
   const [recaddress, setRecAddress] = useState("");
   const [amount, setAmount] = useState("");
-  const { data: hash, sendTransaction } = useSendTransaction()
+  const {  sendTransaction } = useSendTransaction()
   const [sending, setSending] = useState(false);
   const [setError, setSetError] = useState("");
   const { address } = useAccount();
 
-  const { data: balanceData, isError, isLoading } = useBalance({
+  const { data: balanceData } = useBalance({
     address,
   });
 
@@ -32,7 +32,7 @@ const SendEth = ({ setSend }: AccountInfoProps) => {
       setSetError("")
       return;
     }
-  }, [amount])
+  }, [amount,balanceData?.formatted])
   
 
   
